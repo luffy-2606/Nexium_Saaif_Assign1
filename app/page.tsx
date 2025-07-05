@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import quotesData from '../data/quotes.json';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Define the type for our quote
 type Quote = {
@@ -41,33 +45,33 @@ export default function Home() {
         </h1>
         
         {/* Form */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-2">
-                Choose a Topic:
-              </label>
-              <select
-                id="topic"
-                value={selectedTopic}
-                onChange={(e) => setSelectedTopic(e.target.value as Topic)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="inspiration">Inspiration</option>
-                <option value="success">Success</option>
-                <option value="motivation">Motivation</option>
-                <option value="life">Life</option>
-              </select>
-            </div>
-            
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-            >
-              Get 3 Random Quotes
-            </button>
-          </form>
-        </div>
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Select a Topic</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="topic">Choose a Topic:</Label>
+                <Select value={selectedTopic} onValueChange={(value) => setSelectedTopic(value as Topic)}>
+                  <SelectTrigger id="topic">
+                    <SelectValue placeholder="Select a topic" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="inspiration">Inspiration</SelectItem>
+                    <SelectItem value="success">Success</SelectItem>
+                    <SelectItem value="motivation">Motivation</SelectItem>
+                    <SelectItem value="life">Life</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <Button type="submit" className="w-full">
+                Get 3 Random Quotes
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
         {/* Display Quotes */}
         {showQuotes && (
@@ -77,14 +81,16 @@ export default function Home() {
             </h2>
             
             {quotes.map((quote, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                <blockquote className="text-lg text-gray-700 italic mb-4">
-                  "{quote.text}"
-                </blockquote>
-                <p className="text-right text-gray-600 font-medium">
-                  — {quote.author}
-                </p>
-              </div>
+              <Card key={index}>
+                <CardContent className="p-6">
+                  <blockquote className="text-lg text-gray-700 italic mb-4">
+                    "{quote.text}"
+                  </blockquote>
+                  <p className="text-right text-gray-600 font-medium">
+                    — {quote.author}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         )}
