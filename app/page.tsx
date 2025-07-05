@@ -7,28 +7,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-// Define the type for our quote
 type Quote = {
   text: string;
   author: string;
 };
 
-// Define available topics
 type Topic = 'inspiration' | 'success' | 'motivation' | 'life';
 
-export default function Home() {
+export default function Home() 
+{
   const [selectedTopic, setSelectedTopic] = useState<Topic>('inspiration');
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [showQuotes, setShowQuotes] = useState(false);
 
-  // Function to get 3 random quotes from the selected topic
   const getRandomQuotes = (topic: Topic): Quote[] => {
     const topicQuotes = quotesData[topic];
     const shuffled = [...topicQuotes].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 3);
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const randomQuotes = getRandomQuotes(selectedTopic);
@@ -39,12 +36,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-2xl mx-auto px-4">
-        {/* Header */}
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-          Quote Generator
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">
+          Quote Generator - Assignment 1
         </h1>
+        <h2 className="text-1xl text-center text-gray-700 mb-8">
+          By: Saaif Suleman (Nexium Internship)
+        </h2>
         
-        {/* Form */}
+        {/* Most of this is from the ShadCN UI */}
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>Select a Topic</CardTitle>
@@ -73,13 +72,14 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* Display Quotes */}
+        {/* Displaying Quotes :) */}
         {showQuotes && (
           <div className="space-y-6">
             <h2 className="text-2xl font-semibold text-gray-800 text-center">
               {selectedTopic.charAt(0).toUpperCase() + selectedTopic.slice(1)} Quotes
             </h2>
             
+            {/* Making cards for each quote */}
             {quotes.map((quote, index) => (
               <Card key={index}>
                 <CardContent className="p-6">
