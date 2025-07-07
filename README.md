@@ -15,7 +15,7 @@ You can view the live project [over here](https://nexium-assignment-1.vercel.app
 
 ## Technology Used
 
-- **Next.js 14**: React framework for web development
+- **Next.js**: React framework for web development
 - **TypeScript**: For type safety
 - **Tailwind CSS**: For styling
 - **Local JSON Data**: Quotes stored in `/data/quotes.json`
